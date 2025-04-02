@@ -1,0 +1,279 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    background-color: #4e56f5;
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Selection Screen Styles */
+.selection-screen {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.selection-screen h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.tool-options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.tool-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    width: 200px;
+    border-radius: 12px;
+    background-color: #f0f3ff;
+    border: 2px solid #e1e4f9;
+    color: #4e56f5;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tool-button:hover {
+    background-color: #e1e4f9;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(78, 86, 245, 0.2);
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+}
+
+.sinhala-icon {
+    width: 58px;
+    height: 58px;
+    margin-top: 0.5rem;
+}
+
+/* Tool Section Styles */
+.tool-section {
+    padding: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    color: #333;
+}
+
+.back-button {
+    padding: 0.5rem 1rem;
+    background-color: #f0f3ff;
+    color: #4e56f5;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-button:hover {
+    background-color: #e1e4f9;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Translator Styles */
+.translator {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .translator {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
+
+.lang-container {
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+.lang-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.lang-title {
+    font-weight: 600;
+    color: #333;
+}
+
+select {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 0.9rem;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    resize: none;
+    transition: border 0.2s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #4e56f5;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #4e56f5;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+button:hover {
+    background-color: #3a42e6;
+}
+
+button.secondary {
+    background-color: #e1e4f9;
+    color: #4e56f5;
+}
+
+button.secondary:hover {
+    background-color: #d1d5f7;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    margin: 1rem 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.loading.active {
+    display: block;
+}
+
+.character-count {
+    text-align: right;
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: 0.5rem;
+}
+
+.swap-icon, .clear-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+/* Unicode Converter Styles */
+.converter {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .converter {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
+
+.converter-container {
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+.converter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.converter-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.api-info {
+    font-size: 0.8rem;
+    color: #777;
+    font-style: italic;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linguine</title>
+    <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Linguine</h1>
+        </header>
+        
+        <!-- Selection screen -->
+        <div id="selection-screen" class="selection-screen">
+            <h2>Choose a Tool</h2>
+            <div class="tool-options">
+                <button id="translator-option" class="tool-button">
+                    <svg class="tool-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 5h12M9 3v2m1.048 8.5A18.022 18.022 0 008 5.3m7.5 8.5c-.795.141-1.576.228-2.335.267M14.5 5c1.39 2.63 2.165 5.65 2.165 9 0 1.685-.385 3.314-1.165 4.75M6 20l3-7.5 3 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Translator
+                </button>
+                <button id="unicode-option" class="tool-button">
+                    <svg class="sinhala-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <text x="50%" y="60%" font-family="Noto Sans Sinhala, Arial" text-anchor="middle" fill="currentColor">සිං</text>
+                    </svg>
+                    Sinhala Unicode Converter
+                </button>
+            </div>
+        </div>
+        
+        <!-- API Translator Section -->
+        <div id="translator-section" class="tool-section hidden">
+            <div class="section-header">
+                <h2>Translator</h2>
+                <button id="back-from-translator" class="back-button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Back
+                </button>
+            </div>
+            
+            <div class="translator">
+                <div class="lang-container">
+                    <div class="lang-header">
+                        <div class="lang-title">Source Language</div>
+                        <select id="source-language">
+                            <option value="auto">Detect Language</option>
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="zh">Chinese</option>
+                            <option value="ja">Japanese</option>
+                            <option value="ko">Korean</option>
+                            <option value="ar">Arabic</option>
+                            <option value="hi">Hindi</option>
+                            <option value="si">Sinhala</option>
+                        </select>
+                    </div>
+                    <textarea id="source-text" placeholder="Enter text to translate..."></textarea>
+                    <div class="character-count" id="source-count">0 characters</div>
+                </div>
+                
+                <div class="lang-container">
+                    <div class="lang-header">
+                        <div class="lang-title">Target Language</div>
+                        <select id="target-language">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="zh">Chinese</option>
+                            <option value="ja">Japanese</option>
+                            <option value="ko">Korean</option>
+                            <option value="ar">Arabic</option>
+                            <option value="hi">Hindi</option>
+                            <option value="si">Sinhala</option>
+                        </select>
+                    </div>
+                    <textarea id="target-text" placeholder="Translation will appear here..." readonly></textarea>
+                    <div class="character-count" id="target-count">0 characters</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="swap-button" class="secondary">
+                    <svg class="swap-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 16L3 12M3 12L7 8M3 12H16M17 8L21 12M21 12L17 16M21 12H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Swap Languages
+                </button>
+                <button id="translate-button">Translate</button>
+            </div>
+            
+            <div id="loading-indicator" class="loading">
+                Translating... Please wait.
+            </div>
+        </div>
+        
+        <!-- Sinhala Unicode Converter Section -->
+        <div id="unicode-section" class="tool-section hidden">
+            <div class="section-header">
+                <h2>Sinhala Unicode Converter</h2>
+                <button id="back-from-unicode" class="back-button">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Back
+                </button>
+            </div>
+            
+            <div class="converter">
+                <div class="converter-container">
+                    <div class="converter-header">
+                        <div class="converter-title">Type in English (Singlish)</div>
+                        <div class="api-info">Powered by easysinhalaunicode.com</div>
+                    </div>
+                    <textarea id="phonetic-text" placeholder="Type in English phonetics (e.g., 'ayubowan')..."></textarea>
+                    <div class="character-count" id="phonetic-count">0 characters</div>
+                </div>
+                
+                <div class="converter-container">
+                    <div class="converter-header">
+                        <div class="converter-title">Sinhala Unicode</div>
+                    </div>
+                    <textarea id="unicode-text" placeholder="Unicode text will appear here..." readonly></textarea>
+                    <div class="character-count" id="unicode-count">0 characters</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="clear-button" class="secondary">
+                    <svg class="clear-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+                        <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Clear
+                </button>
+                <button id="convert-button">Convert</button>
+            </div>
+            
+            <div id="unicode-loading-indicator" class="loading">
+                Converting... Please wait.
+            </div>
+        </div>
+    </div>
+
+    <script src='script.js'></script>
+</body>
+</html>
