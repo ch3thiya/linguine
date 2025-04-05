@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Selection screen elements
     const selectionScreen = document.getElementById('selection-screen');
     const translatorOption = document.getElementById('translator-option');
     const unicodeOption = document.getElementById('unicode-option');
     
-    // Translator section elements
     const translatorSection = document.getElementById('translator-section');
     const sourceText = document.getElementById('source-text');
     const targetText = document.getElementById('target-text');
@@ -17,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetCount = document.getElementById('target-count');
     const backFromTranslator = document.getElementById('back-from-translator');
     
-    // Unicode converter section elements
     const unicodeSection = document.getElementById('unicode-section');
     const phoneticText = document.getElementById('phonetic-text');
     const unicodeText = document.getElementById('unicode-text');
@@ -29,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const backFromUnicode = document.getElementById('back-from-unicode');
     const unicodeLoadingIndicator = document.getElementById('unicode-loading-indicator');
     
-    // Navigation between sections
     translatorOption.addEventListener('click', function() {
         selectionScreen.classList.add('hidden');
         translatorSection.classList.remove('hidden');
@@ -50,21 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
         selectionScreen.classList.remove('hidden');
     });
     
-    // TRANSLATOR FUNCTIONALITY
     
-    // Update character count for translator
     sourceText.addEventListener('input', function() {
         sourceCount.textContent = `${sourceText.value.length} characters`;
     });
 
-    // Utility function to decode HTML entities
     function decodeHtmlEntities(text) {
         const textArea = document.createElement('textarea');
         textArea.innerHTML = text;
         return textArea.value;
     }
     
-    // Translation function
     async function translateText() {
         const text = sourceText.value.trim();
         if (!text) {
@@ -78,8 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadingIndicator.classList.add('active');
         
         try {
-            // Google Cloud Translation API call
-            const apiKey = 'AIzaSyDw0KMvl0ku3rfkAjHjZjWq-ruxa0gQdgc'; // Replace with your actual API key
+            const apiKey = 'AIzaSyDw0KMvl0ku3rfkAjHjZjWq-ruxa0gQdgc';
             const url = 'https://translation.googleapis.com/language/translate/v2';
             
             const params = new URLSearchParams({
@@ -88,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 key: apiKey
             });
             
-            // Add source language if it's not set to auto-detect
             if (sourceLang !== 'auto') {
                 params.append('source', sourceLang);
             }
@@ -111,34 +101,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Swap languages
     function swapLanguages() {
-        // Don't swap if source is set to auto-detect
         if (sourceLanguage.value === 'auto') {
             alert('Cannot swap when source language is set to "Detect Language"');
             return;
         }
         
-        // Swap languages
         const tempLang = sourceLanguage.value;
         sourceLanguage.value = targetLanguage.value;
         targetLanguage.value = tempLang;
         
-        // Swap text
         const tempText = sourceText.value;
         sourceText.value = targetText.value;
         targetText.value = tempText;
         
-        // Update character counts
         sourceCount.textContent = `${sourceText.value.length} characters`;
         targetCount.textContent = `${targetText.value.length} characters`;
     }
     
-    // Event listeners for translator
     translateButton.addEventListener('click', translateText);
     swapButton.addEventListener('click', swapLanguages);
     
-    // Also translate when pressing Enter in the source text area
     sourceText.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && e.ctrlKey) {
             e.preventDefault();
@@ -146,14 +129,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // UNICODE CONVERTER FUNCTIONALITY
     
-    // Update character count for unicode converter
     phoneticText.addEventListener('input', function() {
         phoneticCount.textContent = `${phoneticText.value.length} characters`;
     });
     
-    // Function to convert phonetic text to Sinhala Unicode using Easy Sinhala Unicode API
     async function convertToUnicode() {
         const text = phoneticText.value.trim();
         if (!text) {
@@ -182,16 +162,13 @@ document.addEventListener('DOMContentLoaded', function() {
             unicodeCount.textContent = `${convertedText.length} characters`;
         } catch (error) {
             console.error('Conversion error:', error);
-            // For better user experience, fall back to basic conversion if API fails
             fallbackConversion(text);
         } finally {
             unicodeLoadingIndicator.classList.remove('active');
         }
     }
     
-    // Simple fallback conversion function in case the API fails
     function fallbackConversion(text) {
-        // Basic mapping for common words and phrases
         const commonPhrases = {
             'ayubowan': 'ආයුබෝවන්',
             'kohomada': 'කොහොමද',
@@ -208,18 +185,15 @@ document.addEventListener('DOMContentLoaded', function() {
             'sinhala': 'සිංහල'
         };
         
-        // Split text into words and try to match with common phrases
         const words = text.split(/\s+/);
         const result = words.map(word => commonPhrases[word.toLowerCase()] || word).join(' ');
         
         unicodeText.value = result;
         unicodeCount.textContent = `${result.length} characters`;
         
-        // Alert the user about the fallback
         alert('API connection failed. Using basic fallback conversion. For best results, please check your internet connection.');
     }
     
-    // Debounce function to limit API calls during typing
     function debounce(func, wait) {
         let timeout;
         return function(...args) {
@@ -229,10 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
     
-    // Debounced conversion for input events
     const debouncedConversion = debounce(convertToUnicode, 500);
     
-    // Clear button functionality
     function clearText() {
         phoneticText.value = '';
         unicodeText.value = '';
@@ -240,19 +212,15 @@ document.addEventListener('DOMContentLoaded', function() {
         unicodeCount.textContent = '0 characters';
     }
     
-    // Event listeners for unicode converter
     convertButton.addEventListener('click', convertToUnicode);
     clearButton.addEventListener('click', clearText);
     
-    // Convert on scheme change (note: the provided API only supports Singlish)
     phoneticScheme.addEventListener('change', function() {
-        // Show warning if user selects a scheme not supported by the API
         if (phoneticScheme.value !== 'singlish') {
             alert('The easysinhalaunicode.com API only supports Singlish format. Your input will be processed as Singlish regardless of this selection.');
         }
         convertToUnicode();
     });
     
-    // Real-time conversion when typing (debounced to avoid too many API calls)
     phoneticText.addEventListener('input', debouncedConversion);
 });
