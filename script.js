@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadingIndicator.classList.add('active');
         
         try {
-            const apiKey = 'AIzaSyDw0KMvl0ku3rfkAjHjZjWq-ruxa0gQdgc';
+            const apiKey = process.env.GOOGLE_TRANSLATE_API_KEY;
             const url = 'https://translation.googleapis.com/language/translate/v2';
             
             const params = new URLSearchParams({
