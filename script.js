@@ -63,35 +63,21 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Please enter some text to translate.');
             return;
         }
-        
+    
         const sourceLang = sourceLanguage.value;
         const targetLang = targetLanguage.value;
-        
+    
         loadingIndicator.classList.add('active');
-        
+    
         try {
-            const apiKey = 'AIzaSyDw0KMvl0ku3rfkAjHjZjWq-ruxa0gQdgc';
-            const url = 'https://translation.googleapis.com/language/translate/v2';
-            
-            const params = new URLSearchParams({
-                q: text,
-                target: targetLang,
-                key: apiKey
-            });
-            
-            if (sourceLang !== 'auto') {
-                params.append('source', sourceLang);
-            }
-            
-            const response = await fetch(`${url}?${params}`);
+            const response = await fetch(`/api/translate?text=${encodeURIComponent(text)}&sourceLang=${sourceLang}&targetLang=${targetLang}`);
             const data = await response.json();
-            
+    
             if (data.error) {
-                throw new Error(data.error.message || 'Translation failed');
+                throw new Error(data.error);
             }
-            
-            const translatedText = data.data.translations[0].translatedText;
-            targetText.value = decodeHtmlEntities(translatedText);
+    
+            targetText.value = decodeHtmlEntities(data.translatedText);
             targetCount.textContent = `${targetText.value.length} characters`;
         } catch (error) {
             console.error('Translation error:', error);
